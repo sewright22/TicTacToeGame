@@ -21,6 +21,26 @@ namespace TicTacToeGame
             boardAsList.TryAdd(9, "9");
         }
 
+        public IDictionary<int, string> GetSpaces()
+        {
+            return boardAsList;
+        }
+
+        public bool IsFull()
+        {
+            var hasBlank = false;
+
+            foreach (var space in boardAsList)
+            {
+                if (space.Value != "X" && space.Value != "O")
+                {
+                    hasBlank = true;
+                }
+            }
+
+            return hasBlank==false;
+        }
+
         public string GetSpace(int v)
         {
             return boardAsList[v];
