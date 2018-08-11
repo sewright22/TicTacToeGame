@@ -8,19 +8,22 @@ namespace MachineLearningTicTacToe
 {
     public class TicTacToeNeuron : Neuron
     {
-        private double prevValue;
         private int _inputs;
         private int _index;
-        private List<double[]> turnHistory;
+        private int gamesPlayedCount;
+        private int gamesWonCount;
+        private int gamesLostCount;
+        private int gamesTiedCount;
+        private Dictionary<int, int> turnHistory;
+        private int timesSelected;
 
         public TicTacToeNeuron(int inputs, int index) : base(inputs)
         {
             RandRange = new Range(0, 1);
-            turnHistory = new List<double[]>();
+            turnHistory = new Dictionary<int, int>();
             _inputs = inputs;
             _index = index;
             Initialize();
-            prevValue = RandGenerator.NextDouble();
         }
 
         private void Initialize()
@@ -31,44 +34,47 @@ namespace MachineLearningTicTacToe
             }
         }
 
-        public void AddPoints(int point)
+        public void AddResult(int point)
         {
-            for(int i=0;i<weights.Length;i++)
+            gamesPlayedCount++;
+
+            if(point==-1)
             {
-                if (point == -1)
-                {
-                    Weights[i] = RandGenerator.NextDouble();
-                }
+                gamesLostCount++;
+            }
+            else if(point==0)
+            {
+                gamesTiedCount++;
+            }
+            else
+            {
+                gamesWonCount++;
             }
         }
 
-        public void AddMove(double move)
+        public void AddMove(int move)
         {
+            timesSelected++;
         }
 
         public override double Compute(double[] input)
         {
-            var runningTotal = (double)0;
-            var total = (double)0;
-
-            for (int i = 0; i < input.Length; i++)
+            if(input[0]!= _index)
             {
-                total += Weights[i];
-                foreach (var array in winningHistory)
-                {
-                    if (array[i] == 1)
-                    {
-                        total += array[i];
-                    }
-                }
+                return 0;
             }
-
-            for (int i = 0; i < input.Length; i++)
+            if (gamesPlayedCount > 0)
             {
-                runningTotal += (input[i] + Weights[i]) / 2;
-            }
+                var percentageOfWins = (double)gamesWonCount / gamesPlayedCount;
+                var percentageOfLosses = (1 - ((double)gamesLostCount / gamesPlayedCount));
+                var percentageOfTies = (double)gamesTiedCount / gamesPlayedCount;
 
-            return runningTotal / _inputs;
+                return (double)input[_index] / (Math.Max(percentageOfWins, Math.Max(percentageOfTies, percentageOfLosses)));
+            }
+            else
+            {
+                return (double)1 / 9;
+            }
         }
     }
 }

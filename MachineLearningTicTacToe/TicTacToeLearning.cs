@@ -8,6 +8,7 @@ namespace MachineLearningTicTacToe
     public class TicTacToeLearning : IUnsupervisedLearning
     {
         private TicTacToeNetwork _network;
+        private int _turnNumber;
 
         public TicTacToeLearning(TicTacToeNetwork network)
         {
@@ -25,12 +26,24 @@ namespace MachineLearningTicTacToe
             var outputs = _network.Compute(input);
             var max = (double)-1;
 
-            for(int i=0;i<outputs.Length;i++)
+            //for(int i=1;i<outputs.Len)
+
+            while (retVal == 0)
             {
-                if(outputs[i] > max)
+                for (int i = 1; i <= outputs.Length; i++)
                 {
-                    max = outputs[i];
-                    retVal = i + 1;
+                    if (outputs[i-1] > max)
+                    {
+                        max = outputs[i-1];
+                        retVal = i;
+                    }
+                }
+
+                if(input[retVal]!=0)
+                {
+                    outputs[retVal-1] = -1;
+                    retVal = 0;
+                    max = -1;
                 }
             }
 
@@ -40,6 +53,16 @@ namespace MachineLearningTicTacToe
         public double RunEpoch(double[][] input)
         {
             throw new NotImplementedException();
+        }
+
+        internal void AddMove(double playerInput, int turnNumber)
+        {
+            _network.AddMove(playerInput, turnNumber);
+        }
+
+        internal void AddResult(int v)
+        {
+            _network.AddResult(v);
         }
     }
 }

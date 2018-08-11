@@ -23,5 +23,19 @@ namespace MachineLearningTicTacToe
                 layer.AddPoints(points);
             }
         }
+
+        internal void AddMove(double playerInput, int turnNumber)
+        {
+            (Layers[turnNumber - 1].Neurons[(int)playerInput - 1] as TicTacToeNeuron).AddMove((int)playerInput);
+        }
+
+        internal void AddResult(int v)
+        {
+            for (int i = 0; i < layersCount; i++)
+            {
+                var layer = Layers[i] as TicTacToeLayer;
+                layer.AddResult(v);
+            }
+        }
     }
 }

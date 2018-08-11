@@ -17,10 +17,19 @@ namespace MachineLearningTicTacToe
 
         public void AddPoints(int point)
         {
+            //for (int i = 0; i < neuronsCount; i++)
+            //{
+            //    var neuron = Neurons[i] as TicTacToeNeuron;
+            //    neuron.AddPoints(point);
+            //}
+        }
+
+        internal void AddResult(int v)
+        {
             for (int i = 0; i < neuronsCount; i++)
             {
                 var neuron = Neurons[i] as TicTacToeNeuron;
-                neuron.AddPoints(point);
+                neuron.AddResult(v);
             }
         }
     }

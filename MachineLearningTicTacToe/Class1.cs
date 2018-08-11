@@ -11,6 +11,7 @@ namespace MachineLearningTicTacToe
     {
         public void SOMLearning()
         {
+            var turnNumber = 1;
             var random = new Random();
             var playCount = 0;
             var player1Wins = 0;
@@ -23,21 +24,21 @@ namespace MachineLearningTicTacToe
             var playerTwo = new Player("Player 2", "O");
             IPlayer curPlayer = null;
             TicTacToeLearning currentTrainer = null;
-            TicTacToeNetwork network1 = new TicTacToeNetwork(9, 3); 
+            TicTacToeNetwork network1 = new TicTacToeNetwork(10, 9); 
 
-            TicTacToeNetwork network2 = new TicTacToeNetwork(9, 3); 
+            TicTacToeNetwork network2 = new TicTacToeNetwork(10, 9); 
             //DistanceNetwork
-            double[] output = new double[9] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
             //network1.Output = output;
 
             // create learning algorithm
             TicTacToeLearning trainer1 = new TicTacToeLearning(network1);
             TicTacToeLearning trainer2 = new RandomTicTacToeLearning(network2);
+            //TicTacToeLearning trainer2 = new TicTacToeLearning(network2);
             //// network's input
-            double[] input = new double[9];
+            double[] input = new double[10];
             // loop
-            while (playCount<1000)
+            while (playCount<100000)
             {
                 if(curPlayer == null)
                 {
@@ -75,15 +76,16 @@ namespace MachineLearningTicTacToe
                 var space8 = game.GameBoard.GetSpace(8);
                 var space9 = game.GameBoard.GetSpace(9);
 
-                input[0] = space1 == "X" ? 1 : space1 == "O" ? 2 : Convert.ToDouble(space1);
-                input[1] = space2 == "X" ? 1 : space2 == "O" ? 2 : Convert.ToDouble(space2);
-                input[2] = space3 == "X" ? 1 : space3 == "O" ? 2 : Convert.ToDouble(space3);
-                input[3] = space4 == "X" ? 1 : space4 == "O" ? 2 : Convert.ToDouble(space4);
-                input[4] = space5 == "X" ? 1 : space5 == "O" ? 2 : Convert.ToDouble(space5);
-                input[5] = space6 == "X" ? 1 : space6 == "O" ? 2 : Convert.ToDouble(space6);
-                input[6] = space7 == "X" ? 1 : space7 == "O" ? 2 : Convert.ToDouble(space7);
-                input[7] = space8 == "X" ? 1 : space8 == "O" ? 2 : Convert.ToDouble(space8);
-                input[8] = space9 == "X" ? 1 : space9 == "O" ? 2 : Convert.ToDouble(space9);
+                input[0] = turnNumber;
+                input[1] = space1 == "X" ? 1 : space1 == "O" ? 2 : Convert.ToDouble(space1);
+                input[2] = space2 == "X" ? 1 : space2 == "O" ? 2 : Convert.ToDouble(space2);
+                input[3] = space3 == "X" ? 1 : space3 == "O" ? 2 : Convert.ToDouble(space3);
+                input[4] = space4 == "X" ? 1 : space4 == "O" ? 2 : Convert.ToDouble(space4);
+                input[5] = space5 == "X" ? 1 : space5 == "O" ? 2 : Convert.ToDouble(space5);
+                input[6] = space6 == "X" ? 1 : space6 == "O" ? 2 : Convert.ToDouble(space6);
+                input[7] = space7 == "X" ? 1 : space7 == "O" ? 2 : Convert.ToDouble(space7);
+                input[8] = space8 == "X" ? 1 : space8 == "O" ? 2 : Convert.ToDouble(space8);
+                input[9] = space9 == "X" ? 1 : space9 == "O" ? 2 : Convert.ToDouble(space9);
 
                 var playerInput = currentTrainer.Run(input);
 
@@ -93,6 +95,8 @@ namespace MachineLearningTicTacToe
                     playerInput = currentTrainer.Run(input);
                 }
 
+                currentTrainer.AddMove(playerInput, turnNumber);
+                turnNumber++;
                 if(game.IsOver)
                 {
                     if(moveValidator.HasWinner(gameBoard))
@@ -100,23 +104,24 @@ namespace MachineLearningTicTacToe
                         if(curPlayer.Name=="Player 1")
                         {
                             player1Wins++;
-                            trainer1.AddPoints(2);
-                            trainer2.AddPoints(0);
+                            trainer1.AddResult(1);
+                            trainer2.AddResult(-1);
                         }
                         else
                         {
                             player2Wins++;
-                            trainer1.AddPoints(0);
-                            trainer2.AddPoints(2);
+                            trainer1.AddResult(-1);
+                            trainer2.AddResult(1);
                         }
                     }
                     else
                     {
                         ties++;
-                        trainer1.AddPoints(1);
-                        trainer2.AddPoints(1);
+                        trainer1.AddResult(0);
+                        trainer2.AddResult(0);
                     }
 
+                    turnNumber = 1;
                     gameBoard = new GameBoard();
                     moveValidator = new MoveValidator();
                     game = new Game(gameBoard, moveValidator);
