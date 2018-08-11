@@ -10,15 +10,15 @@ namespace TicTacToeGame
         public GameBoard()
         {
             boardAsList = new Dictionary<int, string>();
-            boardAsList.TryAdd(1, "1");
-            boardAsList.TryAdd(2, "2");
-            boardAsList.TryAdd(3, "3");
-            boardAsList.TryAdd(4, "4");
-            boardAsList.TryAdd(5, "5");
-            boardAsList.TryAdd(6, "6");
-            boardAsList.TryAdd(7, "7");
-            boardAsList.TryAdd(8, "8");
-            boardAsList.TryAdd(9, "9");
+            boardAsList.TryAdd(1, "0");
+            boardAsList.TryAdd(2, "0");
+            boardAsList.TryAdd(3, "0");
+            boardAsList.TryAdd(4, "0");
+            boardAsList.TryAdd(5, "0");
+            boardAsList.TryAdd(6, "0");
+            boardAsList.TryAdd(7, "0");
+            boardAsList.TryAdd(8, "0");
+            boardAsList.TryAdd(9, "0");
         }
 
         public IDictionary<int, string> GetSpaces()

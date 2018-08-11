@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToeGame", "TicTacToeG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTicTacToeDriver", "ConsoleTicTacToeDriver\ConsoleTicTacToeDriver.csproj", "{F685519A-0218-47E1-9442-A8CDD5585EBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearningTicTacToe", "MachineLearningTicTacToe\MachineLearningTicTacToe.csproj", "{0A0128D1-C947-4B35-A2C3-FE170AF46FBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{A22DFF30-DAAD-4528-BF3E-F01C32C3CBBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{F685519A-0218-47E1-9442-A8CDD5585EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F685519A-0218-47E1-9442-A8CDD5585EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F685519A-0218-47E1-9442-A8CDD5585EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A0128D1-C947-4B35-A2C3-FE170AF46FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A0128D1-C947-4B35-A2C3-FE170AF46FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A0128D1-C947-4B35-A2C3-FE170AF46FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A0128D1-C947-4B35-A2C3-FE170AF46FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A22DFF30-DAAD-4528-BF3E-F01C32C3CBBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A22DFF30-DAAD-4528-BF3E-F01C32C3CBBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A22DFF30-DAAD-4528-BF3E-F01C32C3CBBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A22DFF30-DAAD-4528-BF3E-F01C32C3CBBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

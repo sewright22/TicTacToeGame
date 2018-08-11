@@ -1,0 +1,45 @@
+﻿using AForge.Neuro.Learning;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace MachineLearningTicTacToe
+{
+    public class TicTacToeLearning : IUnsupervisedLearning
+    {
+        private TicTacToeNetwork _network;
+
+        public TicTacToeLearning(TicTacToeNetwork network)
+        {
+            _network = network;
+        }
+
+        public void AddPoints(int point)
+        {
+            _network.AddPoints(point);
+        }
+
+        public virtual double Run(double[] input)
+        {
+            var retVal = 0;
+            var outputs = _network.Compute(input);
+            var max = (double)-1;
+
+            for(int i=0;i<outputs.Length;i++)
+            {
+                if(outputs[i] > max)
+                {
+                    max = outputs[i];
+                    retVal = i + 1;
+                }
+            }
+
+            return retVal;
+        }
+
+        public double RunEpoch(double[][] input)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
