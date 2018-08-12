@@ -30,18 +30,18 @@ namespace MachineLearningTicTacToe
 
             while (retVal == 0)
             {
-                for (int i = 1; i <= outputs.Length; i++)
+                for (int i = 1; i < outputs.Length; i++)
                 {
-                    if (outputs[i-1] > max)
+                    if (outputs[i] > max)
                     {
-                        max = outputs[i-1];
+                        max = outputs[i];
                         retVal = i;
                     }
                 }
 
                 if(input[retVal]!=0)
                 {
-                    outputs[retVal-1] = -1;
+                    outputs[retVal] = -1;
                     retVal = 0;
                     max = -1;
                 }
@@ -60,9 +60,9 @@ namespace MachineLearningTicTacToe
             _network.AddMove(playerInput, turnNumber);
         }
 
-        internal void AddResult(int v)
+        internal void AddResult(int v, double[] input)
         {
-            _network.AddResult(v);
+            _network.AddResult(v, input);
         }
     }
 }

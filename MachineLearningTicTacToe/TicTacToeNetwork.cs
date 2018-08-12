@@ -7,7 +7,7 @@ namespace MachineLearningTicTacToe
 {
     public class TicTacToeNetwork : Network
     {
-        public TicTacToeNetwork(int inputsCount, int layersCount, int outputCount = 9) : base(inputsCount, layersCount)
+        public TicTacToeNetwork(int inputsCount, int layersCount, int outputCount = 10) : base(inputsCount, layersCount)
         {
             for (int i = 0; i < layersCount; i++)
             {
@@ -26,15 +26,15 @@ namespace MachineLearningTicTacToe
 
         internal void AddMove(double playerInput, int turnNumber)
         {
-            (Layers[turnNumber - 1].Neurons[(int)playerInput - 1] as TicTacToeNeuron).AddMove((int)playerInput);
+            (Layers[turnNumber - 1].Neurons[(int)playerInput-1] as TicTacToeNeuron).AddMove((int)playerInput);
         }
 
-        internal void AddResult(int v)
+        internal void AddResult(int v, double[] input)
         {
             for (int i = 0; i < layersCount; i++)
             {
                 var layer = Layers[i] as TicTacToeLayer;
-                layer.AddResult(v);
+                layer.AddResult(v, input);
             }
         }
     }

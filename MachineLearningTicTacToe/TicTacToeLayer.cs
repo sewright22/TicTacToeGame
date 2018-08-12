@@ -24,12 +24,12 @@ namespace MachineLearningTicTacToe
             //}
         }
 
-        internal void AddResult(int v)
+        internal void AddResult(int v, double[] input)
         {
             for (int i = 0; i < neuronsCount; i++)
             {
                 var neuron = Neurons[i] as TicTacToeNeuron;
-                neuron.AddResult(v);
+                neuron.AddResult(v, input);
             }
         }
     }

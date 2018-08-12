@@ -40,7 +40,7 @@ namespace MachineLearningTicTacToe
             // loop
             while (playCount<100000)
             {
-                if(curPlayer == null)
+                if (curPlayer == null)
                 {
                     var goesFirst = random.Next(1, 3);
 
@@ -66,59 +66,41 @@ namespace MachineLearningTicTacToe
                     currentTrainer = trainer1;
                 }
 
-                var space1 = game.GameBoard.GetSpace(1);
-                var space2 = game.GameBoard.GetSpace(2);
-                var space3 = game.GameBoard.GetSpace(3);
-                var space4 = game.GameBoard.GetSpace(4);
-                var space5 = game.GameBoard.GetSpace(5);
-                var space6 = game.GameBoard.GetSpace(6);
-                var space7 = game.GameBoard.GetSpace(7);
-                var space8 = game.GameBoard.GetSpace(8);
-                var space9 = game.GameBoard.GetSpace(9);
-
-                input[0] = turnNumber;
-                input[1] = space1 == "X" ? 1 : space1 == "O" ? 2 : Convert.ToDouble(space1);
-                input[2] = space2 == "X" ? 1 : space2 == "O" ? 2 : Convert.ToDouble(space2);
-                input[3] = space3 == "X" ? 1 : space3 == "O" ? 2 : Convert.ToDouble(space3);
-                input[4] = space4 == "X" ? 1 : space4 == "O" ? 2 : Convert.ToDouble(space4);
-                input[5] = space5 == "X" ? 1 : space5 == "O" ? 2 : Convert.ToDouble(space5);
-                input[6] = space6 == "X" ? 1 : space6 == "O" ? 2 : Convert.ToDouble(space6);
-                input[7] = space7 == "X" ? 1 : space7 == "O" ? 2 : Convert.ToDouble(space7);
-                input[8] = space8 == "X" ? 1 : space8 == "O" ? 2 : Convert.ToDouble(space8);
-                input[9] = space9 == "X" ? 1 : space9 == "O" ? 2 : Convert.ToDouble(space9);
+                input = ConvertGameBoard(turnNumber, game);
 
                 var playerInput = currentTrainer.Run(input);
 
                 while (game.MakeMove(curPlayer, Convert.ToInt32(playerInput)) == false)
                 {
-                    currentTrainer.AddPoints(-1);
+                    //currentTrainer.AddPoints(-1);
                     playerInput = currentTrainer.Run(input);
                 }
 
-                currentTrainer.AddMove(playerInput, turnNumber);
+                //currentTrainer.AddMove(playerInput, turnNumber);
                 turnNumber++;
-                if(game.IsOver)
+                if (game.IsOver)
                 {
-                    if(moveValidator.HasWinner(gameBoard))
+                    if (moveValidator.HasWinner(gameBoard))
                     {
-                        if(curPlayer.Name=="Player 1")
+                        input = ConvertGameBoard(turnNumber, game);
+                        if (curPlayer.Name == "Player 1")
                         {
                             player1Wins++;
-                            trainer1.AddResult(1);
-                            trainer2.AddResult(-1);
+                            trainer1.AddResult(1, input);
+                            trainer2.AddResult(-1, input);
                         }
                         else
                         {
                             player2Wins++;
-                            trainer1.AddResult(-1);
-                            trainer2.AddResult(1);
+                            trainer1.AddResult(-1, input);
+                            trainer2.AddResult(1, input);
                         }
                     }
                     else
                     {
                         ties++;
-                        trainer1.AddResult(0);
-                        trainer2.AddResult(0);
+                        trainer1.AddResult(0, input);
+                        trainer2.AddResult(0, input);
                     }
 
                     turnNumber = 1;
@@ -133,6 +115,33 @@ namespace MachineLearningTicTacToe
             Console.WriteLine(string.Format("Player 1: {0}", player1Wins));
             Console.WriteLine(string.Format("Player 2: {0}", player2Wins));
             Console.WriteLine(string.Format("Cats: {0}", ties));
+        }
+
+        private static double[] ConvertGameBoard(int turnNumber, Game game)
+        {
+            var space1 = game.GameBoard.GetSpace(1);
+            var space2 = game.GameBoard.GetSpace(2);
+            var space3 = game.GameBoard.GetSpace(3);
+            var space4 = game.GameBoard.GetSpace(4);
+            var space5 = game.GameBoard.GetSpace(5);
+            var space6 = game.GameBoard.GetSpace(6);
+            var space7 = game.GameBoard.GetSpace(7);
+            var space8 = game.GameBoard.GetSpace(8);
+            var space9 = game.GameBoard.GetSpace(9);
+
+            double[] input = new double[10];
+            input[0] = turnNumber;
+            input[1] = space1 == "X" ? 1 : space1 == "O" ? 2 : Convert.ToDouble(space1);
+            input[2] = space2 == "X" ? 1 : space2 == "O" ? 2 : Convert.ToDouble(space2);
+            input[3] = space3 == "X" ? 1 : space3 == "O" ? 2 : Convert.ToDouble(space3);
+            input[4] = space4 == "X" ? 1 : space4 == "O" ? 2 : Convert.ToDouble(space4);
+            input[5] = space5 == "X" ? 1 : space5 == "O" ? 2 : Convert.ToDouble(space5);
+            input[6] = space6 == "X" ? 1 : space6 == "O" ? 2 : Convert.ToDouble(space6);
+            input[7] = space7 == "X" ? 1 : space7 == "O" ? 2 : Convert.ToDouble(space7);
+            input[8] = space8 == "X" ? 1 : space8 == "O" ? 2 : Convert.ToDouble(space8);
+            input[9] = space9 == "X" ? 1 : space9 == "O" ? 2 : Convert.ToDouble(space9);
+
+            return input;
         }
 
         public void BackLearning()
@@ -164,6 +173,11 @@ namespace MachineLearningTicTacToe
                 // check error value to see if we need to stop
                 // ...
             }
+        }
+
+        public void TensorFlow()
+        {
+            //var ten = new TensorFlow.
         }
     }
 }
